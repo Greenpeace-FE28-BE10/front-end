@@ -1,11 +1,8 @@
-import Navbar from '../components/Navbar';
-
 const Homepage = () => {
   return (
     <>
-      <Navbar />
-      <div>
-        <h1>Homepage</h1>
+      <div className='w-full h-screen flex justify-center items-center'>
+        <h1 className='text-3xl'>Home</h1>
       </div>
     </>
   );
