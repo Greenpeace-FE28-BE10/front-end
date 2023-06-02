@@ -1,9 +1,7 @@
+import SetupRoute from './routes/SetupRoute';
+
 const App = () => {
-  return (
-    <div>
-      <h1 className='text-3xl font-semibold'>Hello WOrld</h1>
-    </div>
-  );
+  return <SetupRoute />;
 };
 
 export default App;
