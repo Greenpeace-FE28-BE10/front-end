@@ -1,44 +1,31 @@
-import React from 'react';
-import SearchBar from '../components/SearchBarComunity';
-import CardCom from '../components/CardComunity';
-
+import HeroKomunitas from '../components/HeroKomunitas';
+import KomunitasCard from '../components/KomunitasCard';
 
 const Komunitas = () => {
   return (
-    <div>
-      <section className='w-full mx-auto'>
-        <div className="wrapper pt-28 pb-10 ">
-          <div className="flex items-center justify-center h-[434px]  w-full bg-no-repeat bg-[url(https://res.cloudinary.com/dbmiqiqf4/image/upload/v1685715624/unsplash_OYFHT4X5isg_gppref.png)]">
-            <div className="text-center">
-              <h3 className='text-3xl  text-white'>It's time for us</h3>
-              <h1 className='text-7xl mt-4 text-white'>To <span className='text-green-500 italic'>Save Earth</span></h1>
-              <div className='flex mt-5 justify-center'>
-                <SearchBar></SearchBar>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div className='pt-24 sm:pt-0'>
+      <section className='w-full px-5 sm:px-[120px] sm:pb-20 sm:pt-44'>
+        <HeroKomunitas />
       </section>
-      <section className='w-full mx-auto'>
-        <div className="flex flex-col w-full h-1699 bg-[#223A26]">
-          <h1 className='flex text-white text-3xl ml-10 mt-16'>Komunitas Kami</h1>
-          <div className="grid grid-cols-3 gap-0">
-           <CardCom></CardCom>
-           <CardCom></CardCom>
-           <CardCom></CardCom>
-           <CardCom></CardCom>
-           <CardCom></CardCom>
-           <CardCom></CardCom>
-           <CardCom></CardCom>
-           <CardCom></CardCom>
-           <CardCom></CardCom>
+      <section className='w-full'>
+        <div className='flex flex-col w-full bg-[#223A26] px-5 sm:px-[120px] py-16 sm:py-24 mt-12 gap-10'>
+          <h1 className='flex text-white text-[28px] sm:text-3xl'>
+            Komunitas Kami
+          </h1>
+          <div className='grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-16'>
+            <KomunitasCard />
+            <KomunitasCard />
+            <KomunitasCard />
+            <KomunitasCard />
+            <KomunitasCard />
+            <KomunitasCard />
+            <KomunitasCard />
+            <KomunitasCard />
+            <KomunitasCard />
           </div>
-          
         </div>
       </section>
     </div>
-    
-    
   );
 };
 
