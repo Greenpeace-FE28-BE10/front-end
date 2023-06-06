@@ -17,8 +17,8 @@ const FooterComponent = () => {
   ];
 
   return (
-    <footer className='w-full bg-[#223A26] px-5 py-10 flex flex-col items-center justify-center gap-8'>
-      <div className='w-full sm:px-[120px] flex flex-col sm:flex-row justify-between items-start gap-4'>
+    <footer className='w-full bg-[#223A26] py-10 flex flex-col items-center justify-center gap-8'>
+      <div className='w-full px-5 sm:px-[120px] flex flex-col sm:flex-row justify-between items-start gap-4'>
         <div className='w-full sm:max-w-[30%] space-y-1 sm:space-y-4'>
           <Link to='/' className='text-[28px] font-semibold text-[#52C41A]'>
             Hijauin.

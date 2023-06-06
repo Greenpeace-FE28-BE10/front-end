@@ -2,7 +2,7 @@ import ButtonLink from './ButtonLink';
 
 const KomunitasBaru = () => {
   return (
-    <section className='w-full mt-12 sm:mt-0 py-6 sm:py-32 sm:px-[120px]'>
+    <section className='w-full mt-12 sm:mt-0 py-6 sm:py-32 px-5 sm:px-[120px]'>
       <div className='w-full flex flex-col sm:flex-row sm:items-center sm:gap-24 gap-4'>
         <div className='w-full h-[240px] sm:h-[480px]'>
           <img

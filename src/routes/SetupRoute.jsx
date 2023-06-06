@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Artikel from '../pages/Artikel';
+import BuatKomunitas from '../pages/BuatKomunitas';
+import DaftarKomunitas from '../pages/DaftarKomunitas';
 import MainDashboard from '../pages/dashboard/MainDashboard';
 import Homepage from '../pages/Homepage';
 import Komunitas from '../pages/Komunitas';
@@ -7,11 +9,13 @@ import Layout from '../pages/Layout';
 import Register from '../pages/Register';
 import Signin from '../pages/Signin';
 import ProtectedAdmin from './ProtectedAdmin';
+import ScrollToTop from './ScrollToTop';
 import ProtectedVisitor from './ProtectedVisitor';
 
 const SetupRoute = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route element={<Layout />}>
           <Route index element={<Homepage />} />
@@ -21,7 +25,7 @@ const SetupRoute = () => {
             path='/daftar-komunitas'
             element={
               <ProtectedVisitor userRole='visitor'>
-                <Komunitas />
+                <DaftarKomunitas />
               </ProtectedVisitor>
             }
           />
@@ -29,7 +33,7 @@ const SetupRoute = () => {
             path='/buat-komunitas'
             element={
               <ProtectedVisitor userRole='visitor'>
-                <Komunitas />
+                <BuatKomunitas />
               </ProtectedVisitor>
             }
           />
@@ -38,7 +42,7 @@ const SetupRoute = () => {
           <Route
             index
             element={
-              <ProtectedAdmin userRole='visitor'>
+              <ProtectedAdmin userRole='admin'>
                 <MainDashboard />
               </ProtectedAdmin>
             }
