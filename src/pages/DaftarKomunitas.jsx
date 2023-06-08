@@ -1,17 +1,36 @@
 const DaftarKomunitas = () => {
-  const dataKegiatan = [
-    { id: 1, kegiatan: 'Kegiatan 1' },
-    { id: 2, kegiatan: 'Kegiatan 2' },
-    { id: 3, kegiatan: 'Kegiatan 3' },
-    { id: 4, kegiatan: 'Kegiatan 4' },
-    { id: 5, kegiatan: 'Kegiatan 5' },
+  const data = [
+    {
+      title: 'Aktivitas 1',
+      desc: 'Desc aktivitas 1',
+      date: '12 Mei 2023',
+      status: 'Ongoing',
+    },
+    {
+      title: 'Aktivitas 2',
+      desc: 'Desc aktivitas 2',
+      date: '12 Mei 2023',
+      status: 'Ongoing',
+    },
+    {
+      title: 'Aktivitas 3',
+      desc: 'Desc aktivitas 3',
+      date: '12 Mei 2023',
+      status: 'Ongoing',
+    },
+    {
+      title: 'Aktivitas 4',
+      desc: 'Desc aktivitas 4',
+      date: '12 Mei 2023',
+      status: 'Ongoing',
+    },
   ];
 
   return (
     <>
       <section className='w-full px-5 sm:px-[120px] pt-24 sm:py-44'>
-        <div className='flex flex-col sm:flex-row sm:justify-between gap-6'>
-          <div className='flex flex-col gap-6 sm:gap-16'>
+        <div className='flex flex-col sm:flex-row sm:justify-between gap-8 sm:gap-12'>
+          <div className='sm:w-1/2 flex flex-col gap-2 sm:gap-2'>
             <div className='space-y-1'>
               <h2 className='text-[32px] sm:text-[56px] font-semibold'>
                 Hijauin Medan
@@ -29,17 +48,17 @@ const DaftarKomunitas = () => {
                 </p>
               </div>
             </div>
-            <div className='space-y-2'>
-              <h3 className='text-[24px] sm:text-[38px] font-semibold'>
-                Detail Kegiatan
-              </h3>
-              <ul>
-                {dataKegiatan.map((item, index) => (
-                  <li key={index} className='list-decimal ml-6 sm:text-[20px]'>
-                    {item.kegiatan}
-                  </li>
-                ))}
-              </ul>
+            <div className='flex flex-col gap-5 sm:gap-8'>
+              <p className='text-[16px] sm:text-[18px] font-light'>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis
+                suscipit consectetur eos cum quidem reprehenderit, voluptates
+                dolores totam natus repellat qui rem libero perferendis
+                consequatur esse rerum itaque ab. Sed a quos assumenda esse
+                accusantium atque eos? Deserunt, quaerat eaque?
+              </p>
+              <button className='bg-[#52C41A] text-white font-semibold py-2.5 px-3.5 text-center rounded-md sm:w-1/3'>
+                Gabung Sekarang
+              </button>
             </div>
           </div>
           <div className='w-full h-full sm:w-1/2'>
@@ -56,42 +75,65 @@ const DaftarKomunitas = () => {
           Bergabunglah dengan komunitas Hijauin dan ambil aksi nyata untuk
           memerangi permasalahan iklim!
         </h3>
-        <form className='w-full sm:w-1/3 mx-auto flex flex-col gap-6 bg-white rounded-md px-3 sm:px-10 py-2 sm:py-8'>
-          <div className='flex flex-col gap-2'>
-            <label htmlFor=''>Nama Lengkap Anda :</label>
-            <input
-              type='text'
-              placeholder='Masukkan nama anda'
-              className='border-2 border-gray-400 bg-transparent rounded-md focus:outline-none px-2.5 py-2'
-            />
+        {data.map((list, index) => (
+          <div
+            key={index}
+            className='grid grid-cols-1 gap-2 sm:hidden bg-white px-3 py-3 rounded-md'
+          >
+            <div className='flex justify-between items-start'>
+              <div>
+                <h3 className='text-[18px] font-semibold'>{list.title}</h3>
+                <div className='flex gap-4'>
+                  <p>{list.date}</p>
+                  <p>{list.status}</p>
+                </div>
+              </div>
+              <div className='flex items-center justify-center gap-5'>
+                <p>Edit</p>
+                <p>Delete</p>
+              </div>
+            </div>
+            <p>{list.desc}</p>
           </div>
-          <div className='flex flex-col gap-2'>
-            <label htmlFor=''>Nomor Handphone :</label>
-            <input
-              type='text'
-              placeholder='Masukan nomor handphone anda'
-              className='border-2 border-gray-400 bg-transparent rounded-md focus:outline-none px-2.5 py-2'
-            />
-          </div>
-          <div className='flex flex-col gap-2'>
-            <label htmlFor=''>Alamat :</label>
-            <input
-              type='text'
-              placeholder='Masukan alamat lengkap nama anda'
-              className='border-2 border-gray-400 bg-transparent rounded-md focus:outline-none px-2.5 py-2'
-            />
-          </div>
-          <div className='flex flex-col gap-2'>
-            <label htmlFor=''>Jenis Kelamin :</label>
-            <select className='border-2 border-gray-400 bg-transparent rounded-md focus:outline-none px-2.5 py-1.5'>
-              <option value=''>Pria</option>
-              <option value=''>Wanita</option>
-            </select>
-          </div>
-          <button className='bg-[#52C41A] text-white font-semibold py-2.5 px-3.5 text-center rounded-md sm:w-1/2 mx-auto'>
-            Gabung Sekarang
-          </button>
-        </form>
+        ))}
+        <div className='hidden sm:block w-1/2 h-full mx-auto'>
+          <table className='w-full bg-white rounded-lg overflow-hidden sm:shadow-lg'>
+            <thead className='text-white text-center'>
+              <tr className='bg-[#52C41A] flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0'>
+                <th className='p-3 border-r-2 border-green-600'>Aktivitas</th>
+                <th className='p-3 border-r-2 border-green-600'>Deskripsi</th>
+                <th className='p-3 border-r-2 border-green-600'>Tanggal</th>
+                <th className='p-3 border-r-2 border-green-600'>Status</th>
+                <th className='p-3'>Actions</th>
+              </tr>
+            </thead>
+            <tbody className='text-center'>
+              {data.map((list, index) => (
+                <tr
+                  key={index}
+                  className='flex flex-col flex-nowrap sm:table-row mb-2 sm:mb-0'
+                >
+                  <td className='border-slate-400 border-r-2 p-3'>
+                    {list.title}
+                  </td>
+                  <td className='border-slate-400 border-r-2 p-3'>
+                    {list.desc}
+                  </td>
+                  <td className='border-slate-400 border-r-2 p-3'>
+                    {list.date}
+                  </td>
+                  <td className='border-slate-400 border-r-2 p-3'>
+                    {list.status}
+                  </td>
+                  <td className='flex items-center justify-center gap-5 p-3'>
+                    <p>Edit</p>
+                    <p>Delete</p>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </section>
     </>
   );
