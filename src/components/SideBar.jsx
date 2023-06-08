@@ -1,107 +1,95 @@
-import React, { useState } from "react";
-import { HiMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
-import { HiOutlineNewspaper, HiOutlineUserGroup } from "react-icons/hi2";
-import { Link } from "react-router-dom";
+import { useState } from 'react';
+import { IconContext } from 'react-icons';
+import { HiMenuAlt3, HiOutlineUserCircle } from 'react-icons/hi';
+import { HiOutlineNewspaper, HiOutlineUserGroup } from 'react-icons/hi2';
+import { Link } from 'react-router-dom';
 
-const SideMenu = () => {
-
-    const side =[
-        {
-            Text:'Artikel',
-            path: '/artikeldash',
-        },
-        {
-            Text:'Komunitas',
-            path: '/komunitasdash',
-        }
-    ]
-
+const Sidebar = () => {
   const SideMenus = [
-    { name: "", link: "#", icon: HiOutlineUserCircle },
-    { name: "Artikel", link: "#", icon: HiOutlineNewspaper },
-    { name: "Komunitas", link: "#", icon: HiOutlineUserGroup },
+    {
+      name: 'Artikel',
+      path: '/dashboard/artikel',
+      icon: <HiOutlineNewspaper />,
+    },
+    {
+      name: 'Komunitas',
+      path: '/dashboard/komunitas',
+      icon: <HiOutlineUserGroup />,
+    },
   ];
 
   const [open, setOpen] = useState(true);
+
   return (
-    <div>
-      <section className="flex gap-6">
+    <aside className='flex'>
+      <div className='flex gap-6'>
         <div
           className={`bg-[#223A26] min-h-screen ${
-            open ? "w-72" : "w-24"
+            open ? 'w-72' : 'w-24'
           } duration-500 text-gray-100 px-4`}
         >
-          <div className="py-3 flex justify-end">
+          <div className='py-3 flex justify-end'>
             <HiMenuAlt3
               size={46}
-              className="cursor-pointer"
+              className='cursor-pointer'
               onClick={() => setOpen(!open)}
             />
           </div>
           <div>
-            <h1 className={`text-center text-[45px] 
-                font-semibold text-[#52C41A] 
-                ${!open && "hidden"}`}
+            <h1
+              className={`text-center text-[45px]
+                font-semibold text-[#52C41A]
+                ${!open && 'hidden'}`}
             >
-                    Hijauin.
+              Hijauin.
             </h1>
           </div>
-          <div className="mt-4 flex flex-col gap-4 relative items-center">
-            <div className="flex items-center justify-center">
-              <div style={{ width: "100px", height: "100px" }}>
-                {React.createElement(SideMenus[0]?.icon, { size: "100%" })}
-              </div>
-            </div>
-            <h2
-              className={`text-center mt-2 ${!open && "hidden"}`}
-            >
-              {SideMenus[0]?.name}
-            </h2>
-            <div className={`mt-auto text-center ${!open && "hidden"}`}>
-              <p>Nama Pengguna</p>
-              <p>Tempat Tinggal</p>
-            </div>
-          </div>
-          <div className="mt-10 flex flex-col gap-4 relative">
-            {SideMenus?.slice(1).map((menu, i) => (
-              <Link
-                to={menu?.link}
-                key={i}
-                className={`${
-                  menu?.margin && "mt-5"
-                } group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-[#0A1C0E] rounded-md`}
-              >
-                <div style={{ width: "32px", height: "32px" }}>
-                  {React.createElement(menu?.icon, { size: "40" })}
+          <div className='mt-4 flex flex-col gap-4 relative items-center'>
+            <div className='flex items-center justify-center'>
+              <IconContext.Provider value={{ size: '4em' }}>
+                <div>
+                  <HiOutlineUserCircle />
                 </div>
+              </IconContext.Provider>
+            </div>
+            <h2 className={`text-center text-[28px] mt-2 ${!open && 'hidden'}`}>
+              Hello Admin
+            </h2>
+          </div>
+          <div className='mt-10 flex flex-col gap-4 relative'>
+            {SideMenus.map((menu, i) => (
+              <Link
+                to={menu.path}
+                key={i}
+                className={`group flex items-center text-[20px] gap-3.5 font-medium p-2 hover:bg-[#0A1C0E] rounded-md`}
+              >
+                <IconContext.Provider value={{ size: '2em' }}>
+                  <div>{menu.icon}</div>
+                </IconContext.Provider>
                 <h2
                   style={{
                     transitionDelay: `${i + 3}00ms`,
                   }}
-                  className={`whitespace-pre duration-500 ${
-                    !open && "opacity-0 translate-x-28 overflow-hidden"
+                  className={`duration-500 ${
+                    !open && 'opacity-0 translate-x-28 overflow-hidden'
                   }`}
                 >
-                  {menu?.name}
+                  {menu.name}
                 </h2>
                 <h2
                   className={`${
-                    open && "hidden"
-                  } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+                    open && 'hidden'
+                  } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit`}
                 >
-                  {menu?.name}
+                  {menu.name}
                 </h2>
               </Link>
             ))}
           </div>
         </div>
-        {/* <div className="m-5 text-4xl text-gray-900 font-semibold">
-            Daftar Artikel
-        </div> */}
-      </section>
-      
-    </div>
+      </div>
+    </aside>
   );
 };
 
-export default SideMenu;
+export default Sidebar;
