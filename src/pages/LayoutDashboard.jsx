@@ -1,17 +1,17 @@
-import React from "react";
-import { Outlet } from 'react-router-dom';
-import SideMenu from "../components/DashboardSideMenu";
+import { Outlet } from 'react-router';
+import Sidebar from '../components/SideBar';
 
-const DashboardLayout = () =>{
-    return(
-        <>
-            <main>
-                <SideMenu></SideMenu>
-            </main>
-        
-        </>
-    )
+const LayoutDashboard = () => {
+  return (
+    <>
+      <main className='flex w-full h-screen'>
+        <Sidebar />
+        <section className='flex-1 h-screen overflow-y-scroll'>
+          <Outlet />
+        </section>
+      </main>
+    </>
+  );
+};
 
-}
-
-export default DashboardLayout;
+export default LayoutDashboard;

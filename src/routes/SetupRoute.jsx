@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Artikel from '../pages/Artikel';
 import BuatKomunitas from '../pages/BuatKomunitas';
 import DaftarKomunitas from '../pages/DaftarKomunitas';
-import MainDashboard from '../pages/dashboard/MainDashboard';
 import Homepage from '../pages/Homepage';
 import Komunitas from '../pages/Komunitas';
 import Layout from '../pages/Layout';
@@ -11,6 +10,9 @@ import Signin from '../pages/Signin';
 import ProtectedAdmin from './ProtectedAdmin';
 import ScrollToTop from './ScrollToTop';
 import ProtectedVisitor from './ProtectedVisitor';
+import LayoutDashboard from '../pages/LayoutDashboard';
+import ArtikelDashboard from '../pages/dashboard/ArtikelDashboard';
+import KomunitasDashboard from '../pages/dashboard/KomunitasDashboard';
 
 const SetupRoute = () => {
   return (
@@ -38,12 +40,20 @@ const SetupRoute = () => {
             }
           />
         </Route>
-        <Route path='/dashboard' element={<Layout />}>
+        <Route path='/dashboard' element={<LayoutDashboard />}>
           <Route
-            index
+            path='/dashboard/artikel'
             element={
               <ProtectedAdmin userRole='admin'>
-                <MainDashboard />
+                <ArtikelDashboard />
+              </ProtectedAdmin>
+            }
+          />
+          <Route
+            path='/dashboard/komunitas'
+            element={
+              <ProtectedAdmin userRole='admin'>
+                <KomunitasDashboard />
               </ProtectedAdmin>
             }
           />
