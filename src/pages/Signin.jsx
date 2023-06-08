@@ -17,7 +17,7 @@ const Signin = () => {
             />
             <input
               className='w-full py-2 px-2.5 border-b-[1px] border-slate-400'
-              type='text'
+              type='password'
               placeholder='Password'
             />
             <Link
