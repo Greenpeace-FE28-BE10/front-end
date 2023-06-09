@@ -6,10 +6,17 @@ const KomunitasDashboard = () => {
   return (
     <div className='w-full px-14 py-10 space-y-14'>
       <h1 className='text-[32px] font-semibold'>List Komunitas Hijauin</h1>
-      <div className='flex flex-col items-end gap-6'>
-        <button className='bg-[#52C41A] text-white font-semibold py-2.5 px-3.5 text-center rounded-md sm:w-1/6'>
-          Buat Komunitas
-        </button>
+      <div className='flex flex-col gap-8'>
+        <div className='flex justify-between'>
+          <input
+            className='px-3.5 py-2.5 w-1/2 border-2 border-slate-800 rounded-md '
+            placeholder='Cari komunitas ...'
+            type='text'
+          />
+          <button className='bg-[#52C41A] text-white font-semibold py-2.5 px-3.5 text-center rounded-md'>
+            Buat Komunitas
+          </button>
+        </div>
         <table className='w-full bg-white rounded-lg overflow-hidden sm:shadow-lg'>
           <thead className='text-white text-left'>
             <tr className='bg-[#223A26] text-[20px] flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0'>
