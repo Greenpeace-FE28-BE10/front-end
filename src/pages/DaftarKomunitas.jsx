@@ -100,10 +100,10 @@ const DaftarKomunitas = () => {
           <table className='w-full bg-white rounded-lg overflow-hidden sm:shadow-lg'>
             <thead className='text-white text-center'>
               <tr className='bg-[#52C41A] flex flex-col flex-no wrap sm:table-row rounded-l-lg sm:rounded-none mb-2 sm:mb-0'>
-                <th className='p-3 border-r-2 border-green-600'>Aktivitas</th>
-                <th className='p-3 border-r-2 border-green-600'>Deskripsi</th>
-                <th className='p-3 border-r-2 border-green-600'>Tanggal</th>
-                <th className='p-3 border-r-2 border-green-600'>Status</th>
+                <th className='p-3'>Aktivitas</th>
+                <th className='p-3'>Deskripsi</th>
+                <th className='p-3'>Tanggal</th>
+                <th className='p-3'>Status</th>
                 <th className='p-3'>Actions</th>
               </tr>
             </thead>
@@ -111,20 +111,12 @@ const DaftarKomunitas = () => {
               {data.map((list, index) => (
                 <tr
                   key={index}
-                  className='flex flex-col flex-nowrap sm:table-row mb-2 sm:mb-0'
+                  className='flex flex-col flex-nowrap border-b-2 border-slate-200 sm:table-row mb-2 sm:mb-0'
                 >
-                  <td className='border-slate-400 border-r-2 p-3'>
-                    {list.title}
-                  </td>
-                  <td className='border-slate-400 border-r-2 p-3'>
-                    {list.desc}
-                  </td>
-                  <td className='border-slate-400 border-r-2 p-3'>
-                    {list.date}
-                  </td>
-                  <td className='border-slate-400 border-r-2 p-3'>
-                    {list.status}
-                  </td>
+                  <td className='p-3'>{list.title}</td>
+                  <td className='p-3'>{list.desc}</td>
+                  <td className='p-3'>{list.date}</td>
+                  <td className='p-3'>{list.status}</td>
                   <td className='flex items-center justify-center gap-5 p-3'>
                     <p>Edit</p>
                     <p>Delete</p>
