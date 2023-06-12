@@ -13,7 +13,7 @@ const Sidebar = () => {
     },
     {
       name: 'Komunitas',
-      path: '/dashboard/komunitas',
+      path: '/dashboard',
       icon: <HiOutlineUserGroup />,
     },
   ];

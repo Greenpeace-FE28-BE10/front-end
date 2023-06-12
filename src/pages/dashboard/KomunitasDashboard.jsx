@@ -1,8 +1,19 @@
+import { useState } from 'react';
 import { IconContext } from 'react-icons';
 import { RiEditBoxFill } from 'react-icons/ri';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
+import EditCommunity from '../../components/modals/EditCommunity';
 
 const KomunitasDashboard = () => {
+  const [modalEdit, setModalEdit] = useState(false);
+  const handleOpenModal = () => {
+    setModalEdit(!modalEdit);
+  };
+
+  const handleCloseModal = () => {
+    setModalEdit(false);
+  };
+
   return (
     <div className='w-full px-14 py-10 space-y-14'>
       <h1 className='text-[32px] font-semibold'>List Komunitas Hijauin</h1>
@@ -42,7 +53,7 @@ const KomunitasDashboard = () => {
               </td>
               <td className='flex items-center justify-center gap-5 p-3'>
                 <IconContext.Provider value={{ size: '2em', color: '#0042ED' }}>
-                  <div className='cursor-pointer'>
+                  <div onClick={handleOpenModal} className='cursor-pointer'>
                     <RiEditBoxFill />
                   </div>
                 </IconContext.Provider>
@@ -55,6 +66,7 @@ const KomunitasDashboard = () => {
             </tr>
           </tbody>
         </table>
+        <EditCommunity isOpen={modalEdit} isClose={handleCloseModal} />
       </div>
     </div>
   );

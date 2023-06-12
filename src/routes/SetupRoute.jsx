@@ -42,18 +42,18 @@ const SetupRoute = () => {
         </Route>
         <Route path='/dashboard' element={<LayoutDashboard />}>
           <Route
-            path='/dashboard/artikel'
+            index
             element={
               <ProtectedAdmin userRole='admin'>
-                <ArtikelDashboard />
+                <KomunitasDashboard />
               </ProtectedAdmin>
             }
           />
           <Route
-            path='/dashboard/komunitas'
+            path='/dashboard/artikel'
             element={
               <ProtectedAdmin userRole='admin'>
-                <KomunitasDashboard />
+                <ArtikelDashboard />
               </ProtectedAdmin>
             }
           />

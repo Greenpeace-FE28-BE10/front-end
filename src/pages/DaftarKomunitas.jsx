@@ -1,3 +1,8 @@
+import { useState } from 'react';
+import { IconContext } from 'react-icons';
+import { RiDeleteBin2Fill, RiEditBoxFill } from 'react-icons/ri';
+import EditActivities from '../components/modals/EditActivities';
+
 const DaftarKomunitas = () => {
   const data = [
     {
@@ -25,6 +30,17 @@ const DaftarKomunitas = () => {
       status: 'Ongoing',
     },
   ];
+
+  const [modalEdit, setModalEdit] = useState(false);
+  const handleOpenModal = () => {
+    setModalEdit(!modalEdit);
+  };
+
+  const handleCloseModal = () => {
+    setModalEdit(false);
+  };
+
+  const isLeader = false;
 
   return (
     <>
@@ -104,7 +120,7 @@ const DaftarKomunitas = () => {
                 <th className='p-3'>Deskripsi</th>
                 <th className='p-3'>Tanggal</th>
                 <th className='p-3'>Status</th>
-                <th className='p-3'>Actions</th>
+                {isLeader ? <th className='p-3'>Actions</th> : null}
               </tr>
             </thead>
             <tbody className='text-center'>
@@ -117,14 +133,32 @@ const DaftarKomunitas = () => {
                   <td className='p-3'>{list.desc}</td>
                   <td className='p-3'>{list.date}</td>
                   <td className='p-3'>{list.status}</td>
-                  <td className='flex items-center justify-center gap-5 p-3'>
-                    <p>Edit</p>
-                    <p>Delete</p>
-                  </td>
+                  {isLeader ? (
+                    <td className='flex items-center justify-center gap-5 p-3'>
+                      <IconContext.Provider
+                        value={{ size: '2em', color: '#0042ED' }}
+                      >
+                        <div
+                          onClick={handleOpenModal}
+                          className='cursor-pointer'
+                        >
+                          <RiEditBoxFill />
+                        </div>
+                      </IconContext.Provider>
+                      <IconContext.Provider
+                        value={{ size: '2em', color: '#FF3034' }}
+                      >
+                        <div className='cursor-pointer'>
+                          <RiDeleteBin2Fill />
+                        </div>
+                      </IconContext.Provider>
+                    </td>
+                  ) : null}
                 </tr>
               ))}
             </tbody>
           </table>
+          <EditActivities isOpen={modalEdit} isClose={handleCloseModal} />
         </div>
       </section>
     </>
