@@ -32,9 +32,9 @@ const Navbar = () => {
   const userLogin = JSON.parse(localStorage.getItem('user'));
   useEffect(() => {
     if (userLogin) {
-      setIsAuth(true);
+      setIsAuth(userLogin);
     }
-  }, [userLogin]);
+  }, []);
 
   const handleLogoutUser = () => {
     authHelpers.logout();
@@ -54,7 +54,7 @@ const Navbar = () => {
             </li>
           ))}
           <li>
-            {userLogin.role === 'admin' ? (
+            {isAuth.role === 'admin' ? (
               <Link className='hover:text-[#52C41A]' to='/dashboard'>
                 Dashboard
               </Link>
