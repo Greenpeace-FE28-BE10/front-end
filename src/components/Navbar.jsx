@@ -1,7 +1,9 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import MenuIcon from '../assets/menu.png';
 import CloseIcon from '../assets/x.png';
+import authHelpers from '../utils/authHelpers';
+import logout from '../utils/authHelpers';
 
 const Navbar = () => {
   const menuItem = [
@@ -25,7 +27,19 @@ const Navbar = () => {
     setToggle((prev) => !prev);
   };
 
-  const isAuth = true;
+  const [isAuth, setIsAuth] = useState(false);
+  const navigate = useNavigate();
+  const userLogin = JSON.parse(localStorage.getItem('user'));
+  useEffect(() => {
+    if (userLogin) {
+      setIsAuth(userLogin);
+    }
+  }, []);
+
+  const handleLogoutUser = () => {
+    authHelpers.logout();
+    navigate('/login');
+  };
 
   return (
     <header className='w-full fixed shadow-md bg-white'>
@@ -39,10 +53,18 @@ const Navbar = () => {
               <Link to={item.path}>{item.text}</Link>
             </li>
           ))}
+          <li>
+            {isAuth.role === 'admin' ? (
+              <Link className='hover:text-[#52C41A]' to='/dashboard'>
+                Dashboard
+              </Link>
+            ) : null}
+          </li>
           {isAuth ? (
             <li className='pl-8 flex items-center gap-8 font-semibold'>
-              <p>Hello, Admin/User</p>
+              <p>Hello, {userLogin.name}</p>
               <Link
+                onClick={handleLogoutUser}
                 className='bg-[#e63946] px-8 py-2 rounded text-white'
                 to='/signin'
               >
