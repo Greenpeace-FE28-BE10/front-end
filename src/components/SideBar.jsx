@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IconContext } from 'react-icons';
-import { HiMenuAlt3, HiOutlineUserCircle } from 'react-icons/hi';
+import { HiMenuAlt3, HiOutlineHome, HiOutlineUserCircle } from 'react-icons/hi';
 import { HiOutlineNewspaper, HiOutlineUserGroup } from 'react-icons/hi2';
 import { Link } from 'react-router-dom';
 
@@ -16,9 +16,22 @@ const Sidebar = () => {
       path: '/dashboard',
       icon: <HiOutlineUserGroup />,
     },
+    {
+      name: 'Back to home',
+      path: '/',
+      icon: <HiOutlineHome />,
+    },
   ];
 
   const [open, setOpen] = useState(true);
+
+  const [isAuth, setIsAuth] = useState(false);
+  const adminLogin = JSON.parse(localStorage.getItem('user'));
+  useEffect(() => {
+    if (adminLogin) {
+      setIsAuth(true);
+    }
+  }, [adminLogin]);
 
   return (
     <aside className='flex'>
@@ -52,9 +65,19 @@ const Sidebar = () => {
                 </div>
               </IconContext.Provider>
             </div>
-            <h2 className={`text-center text-[28px] mt-2 ${!open && 'hidden'}`}>
-              Hello Admin
-            </h2>
+            {isAuth ? (
+              <h2
+                className={`text-center text-[24px] mt-2 ${!open && 'hidden'}`}
+              >
+                {`Hello ${adminLogin.name}`}
+              </h2>
+            ) : (
+              <h2
+                className={`text-center text-[28px] mt-2 ${!open && 'hidden'}`}
+              >
+                Hello Admin
+              </h2>
+            )}
           </div>
           <div className='mt-10 flex flex-col gap-4 relative'>
             {SideMenus.map((menu, i) => (
