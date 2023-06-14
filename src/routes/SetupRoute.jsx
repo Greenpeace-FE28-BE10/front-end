@@ -13,6 +13,7 @@ import ProtectedVisitor from './ProtectedVisitor';
 import LayoutDashboard from '../pages/LayoutDashboard';
 import ArtikelDashboard from '../pages/dashboard/ArtikelDashboard';
 import KomunitasDashboard from '../pages/dashboard/KomunitasDashboard';
+import DetailArt from '../pages/DetailArticle';
 
 const SetupRoute = () => {
   return (
@@ -23,6 +24,7 @@ const SetupRoute = () => {
           <Route index element={<Homepage />} />
           <Route path='/artikel' element={<Artikel />} />
           <Route path='/komunitas' element={<Komunitas />} />
+          <Route path='/detailart' element={<DetailArt />} />
           <Route
             path='/daftar-komunitas/:id'
             element={

@@ -21,15 +21,13 @@ const Artikel = () => {
             <h1 className='font-semibold text-[28px] sm:text-[48px] leading-tight'>
               Peran masyarakat dalam upaya mengurangi dampak krisis iklim
             </h1>
-            <p className='text-[#8C8C8C] font-light'>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem
-              perspiciatis quisquam soluta inventore dolore. Tempora in optio ex
-              distinctio sit amet dignissimos assumenda voluptatibus expedita
-              libero tenetur impedit, explicabo porro esse cupiditate.
+            <p className='text-[#8C8C8C] font-light text-justify'>
+            Jutaan orang di seluruh dunia berpartisipasi dalam Hari Bumi pada 22 April lalu, untuk mendukung perlindungan atas lingkungan.Yang paling diingat banyak orang adalah perubahan iklim dan kebutuhan untuk mengurangi emisi gas rumah kaca global dengan cepat.
+            Sebagian besar perubahan diperlukan untuk mengendalikan perubahan iklim dengan cepat, melampaui apa yang dapat dilakukan oleh setiap individu – mulai dari meningkatkan infrastruktur energi terbarukan, hingga menghentikan penggunaan bahan bakar fosil secara cepat.
             </p>
           </div>
           <Link
-            to='/artikel'
+            to='/detailart'
             className='bg-[#52C41A] text-white rounded-md text-center py-2.5 px-3.5 sm:w-1/2'
           >
             Baca Selengkapnya
