@@ -23,18 +23,11 @@ const SetupRoute = () => {
           <Route index element={<Homepage />} />
           <Route path='/artikel' element={<Artikel />} />
           <Route path='/komunitas' element={<Komunitas />} />
-          <Route
-            path='/daftar-komunitas/:id'
-            element={
-              <ProtectedVisitor userRole='visitor'>
-                <DaftarKomunitas />
-              </ProtectedVisitor>
-            }
-          />
+          <Route path='/daftar-komunitas/:id' element={<DaftarKomunitas />} />
           <Route
             path='/buat-komunitas'
             element={
-              <ProtectedVisitor userRole='visitor'>
+              <ProtectedVisitor>
                 <BuatKomunitas />
               </ProtectedVisitor>
             }
@@ -44,7 +37,7 @@ const SetupRoute = () => {
           <Route
             index
             element={
-              <ProtectedAdmin userRole='admin'>
+              <ProtectedAdmin>
                 <KomunitasDashboard />
               </ProtectedAdmin>
             }
@@ -52,7 +45,7 @@ const SetupRoute = () => {
           <Route
             path='/dashboard/artikel'
             element={
-              <ProtectedAdmin userRole='admin'>
+              <ProtectedAdmin>
                 <ArtikelDashboard />
               </ProtectedAdmin>
             }

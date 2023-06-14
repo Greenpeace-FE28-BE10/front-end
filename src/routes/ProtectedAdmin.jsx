@@ -1,11 +1,16 @@
+import { useEffect } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 
-const ProtectedAdmin = ({ userRole, children }) => {
+const ProtectedAdmin = ({ children }) => {
   const location = useLocation();
+  const roleAccess = JSON.parse(localStorage.getItem('user'));
 
-  if (userRole !== 'admin') {
-    return <Navigate to='/signin' state={{ from: location }} replace />;
-  }
+  useEffect(() => {
+    if (roleAccess.role !== 'admin') {
+      return <Navigate to='/' state={{ from: location }} replace />;
+    }
+  }, []);
+
   return children;
 };
 

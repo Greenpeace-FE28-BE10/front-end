@@ -121,7 +121,7 @@ const DaftarKomunitas = () => {
                       <th className='p-3'>Deskripsi</th>
                       <th className='p-3'>Tanggal</th>
                       <th className='p-3'>Status</th>
-                      {userAuth.id === leader?.id ? (
+                      {userAuth?.id === leader?.id ? (
                         <th className='p-3'>Actions</th>
                       ) : null}
                     </tr>
@@ -136,7 +136,7 @@ const DaftarKomunitas = () => {
                         <td className='p-3'>{list.description}</td>
                         <td className='p-3'>{list.date}</td>
                         <td className='p-3'>{list.status}</td>
-                        {userAuth.id === leader.id ? (
+                        {userAuth?.id === leader.id ? (
                           <td className='h-full flex items-center justify-center gap-5 my-auto p-3'>
                             <IconContext.Provider
                               value={{ size: '2em', color: '#0042ED' }}
