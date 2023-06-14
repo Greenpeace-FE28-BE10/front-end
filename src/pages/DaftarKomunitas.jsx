@@ -4,6 +4,7 @@ import { RiDeleteBin2Fill, RiEditBoxFill } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import LoaderData from '../components/LoaderData';
+import AddActivities from '../components/modals/AddActivities';
 import EditActivities from '../components/modals/EditActivities';
 import { getCommunityById } from '../store/features/communitySlice';
 
@@ -20,12 +21,21 @@ const DaftarKomunitas = () => {
   console.log(userAuth);
 
   const [modalEdit, setModalEdit] = useState(false);
+  const [modalAdd, setModalAdd] = useState(false);
   const handleOpenModal = () => {
     setModalEdit(!modalEdit);
   };
 
+  const handleOpenModalAdd = () => {
+    setModalAdd(!modalAdd);
+  };
+
   const handleCloseModal = () => {
     setModalEdit(false);
+  };
+
+  const handleCloseModalAdd = () => {
+    setModalAdd(false);
   };
 
   return (
@@ -79,6 +89,16 @@ const DaftarKomunitas = () => {
               Bergabunglah dengan komunitas Hijauin dan ambil aksi nyata untuk
               memerangi permasalahan iklim!
             </h3>
+            {userAuth?.id === leader?.id ? (
+              <div className='w-full flex items-center justify-center'>
+                <button
+                  onClick={handleOpenModalAdd}
+                  className='bg-[#52C41A] text-white font-semibold py-2.5 px-3.5 text-center rounded-md sm:w-1/6'
+                >
+                  Tambah Aktivitas Baru
+                </button>
+              </div>
+            ) : null}
             {aktivitas?.length <= 0 ? (
               <p className='bg-white text-center py-4 rounded-md sm:hidden'>
                 Aktivitas Kosong
@@ -163,6 +183,11 @@ const DaftarKomunitas = () => {
                 </table>
               )}
               <EditActivities isOpen={modalEdit} isClose={handleCloseModal} />
+              <AddActivities
+                idCommunity={id}
+                isOpen={modalAdd}
+                isClose={handleCloseModalAdd}
+              />
             </div>
           </section>
         </>
