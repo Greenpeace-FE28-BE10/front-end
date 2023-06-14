@@ -1,7 +1,20 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import HeroKomunitas from '../components/HeroKomunitas';
 import KomunitasCard from '../components/KomunitasCard';
+import LoaderData from '../components/LoaderData';
+import { getAllCommunity } from '../store/features/communitySlice';
 
 const Komunitas = () => {
+  const isLoading = useSelector((state) => state.community.loading);
+  const dataCommunity = useSelector((state) => state.community.data);
+  const dispatch = useDispatch();
+
+  console.log(dataCommunity);
+  useEffect(() => {
+    dispatch(getAllCommunity());
+  }, [dispatch]);
+
   return (
     <div className='pt-24 sm:pt-0'>
       <section className='w-full px-5 sm:px-[120px] sm:pb-20 sm:pt-44'>
@@ -13,15 +26,20 @@ const Komunitas = () => {
             Komunitas Kami
           </h1>
           <div className='grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-16'>
-            <KomunitasCard />
-            <KomunitasCard />
-            <KomunitasCard />
-            <KomunitasCard />
-            <KomunitasCard />
-            <KomunitasCard />
-            <KomunitasCard />
-            <KomunitasCard />
-            <KomunitasCard />
+            {isLoading ? (
+              <LoaderData fill='#ffffff' />
+            ) : (
+              dataCommunity?.map((list) => (
+                <KomunitasCard
+                  key={list.id}
+                  leaderName={list.leader_name}
+                  communityName={list.name}
+                  communityLocation={list.location}
+                  //   getDetail={() => handleGetDetail(list.id)}
+                  idCommunity={list.id}
+                />
+              ))
+            )}
           </div>
         </div>
       </section>

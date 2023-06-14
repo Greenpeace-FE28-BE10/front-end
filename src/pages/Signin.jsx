@@ -5,22 +5,28 @@ import authHelpers from '../utils/authHelpers';
 const Signin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errorLogin, setErrorLogin] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
-    setIsLoading(true);
     e.preventDefault();
-    const success = await authHelpers.login(email, password);
-    const userRole = JSON.parse(localStorage.getItem('user'));
-    if (success) {
-      setIsLoading(false);
-      if (userRole.role === 'admin') {
-        return navigate('/dashboard');
-      }
-      navigate('/');
+    if (email === '' || password === '') {
+      return setErrorLogin('Semua field tidak boleh kosong');
     } else {
-      alert('login gagal');
+      setIsLoading(true);
+      const success = await authHelpers.login(email, password);
+      const userRole = JSON.parse(localStorage.getItem('user'));
+      if (success) {
+        setIsLoading(false);
+        if (userRole.role === 'admin') {
+          return navigate('/dashboard');
+        }
+        navigate('/');
+      } else {
+        setIsLoading(false);
+        setErrorLogin('Authentikasi Gagal');
+      }
     }
   };
 
@@ -49,11 +55,14 @@ const Signin = () => {
                 setPassword(e.target.value);
               }}
             />
+            <p className='text-[20px] font-semibold text-[#e63946]'>
+              {errorLogin}
+            </p>
             {isLoading ? (
               <button
                 disabled
                 to='/'
-                className='bg-[#52C41A] text-white mt-4 sm:mt-8 sm:w-1/3 sm:mx-auto font-semibold py-2.5 px-3.5 text-center rounded-md'
+                className='bg-[#6c757d] text-white mt-4 sm:mt-8 sm:w-1/3 sm:mx-auto font-semibold py-2.5 px-3.5 text-center rounded-md'
               >
                 Loading
               </button>

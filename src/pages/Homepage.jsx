@@ -10,9 +10,9 @@ const Homepage = () => {
         <HeroSection />
         <ArticleSection />
       </div>
-      <div className='w-full bg-[#223A26]'>
+      {/* <div className='w-full bg-[#223A26]'>
         <KomunitasSection />
-      </div>
+      </div> */}
       <div className='w-full'>
         <KomunitasBaru />
       </div>

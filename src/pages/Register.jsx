@@ -17,8 +17,14 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log({
+      name: form.namaUser,
+      address: form.address,
+      email: form.email,
+      password: form.password,
+    });
     const success = await authHelpers.register({
-      name: form.name,
+      name: form.namaUser,
       address: form.address,
       email: form.email,
       password: form.password,
@@ -46,7 +52,7 @@ const Register = () => {
             className='w-full flex flex-col gap-4 sm:gap-6 mt-4'
           >
             <input
-              name='name'
+              name='namaUser'
               className='w-full py-2 px-2.5 border-b-[1px] border-slate-400'
               type='text'
               placeholder='Nama anda'

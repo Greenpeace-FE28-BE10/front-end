@@ -24,7 +24,7 @@ const SetupRoute = () => {
           <Route path='/artikel' element={<Artikel />} />
           <Route path='/komunitas' element={<Komunitas />} />
           <Route
-            path='/daftar-komunitas'
+            path='/daftar-komunitas/:id'
             element={
               <ProtectedVisitor userRole='visitor'>
                 <DaftarKomunitas />

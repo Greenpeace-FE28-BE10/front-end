@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { IconContext } from 'react-icons';
 import { RiCloseCircleFill } from 'react-icons/ri';
 
@@ -8,24 +9,30 @@ const EditActivities = ({ isOpen, isClose }) => {
       <div className='w-1/4 relative flex gap-8 bg-white px-8 py-6 shadow-lg rounded-md border-2 border-slate-400'>
         <form className='w-full flex flex-col gap-8'>
           <input
+            name='title'
             className='w-full py-2 px-2.5 border-b-[1px] border-slate-400'
             type='text'
             placeholder='Nama Aktivitas'
           />
-          <input
+          <textarea
+            name='description'
             className='w-full py-2 px-2.5 border-b-[1px] border-slate-400'
             type='text'
             placeholder='Deskripsi Aktivitas'
           />
           <input
+            name='date'
             className='w-full py-2 px-2.5 border-b-[1px] border-slate-400'
             type='date'
             placeholder='Tnggal Aktivitas'
           />
-          <select className='w-full py-2 px-2.5 border-b-[1px] border-slate-400'>
-            <option value=''>Ongoing</option>
-            <option value=''>Done</option>
-            <option value=''>Upcoming</option>
+          <select
+            name='status'
+            className='w-full py-2 px-2.5 border-b-[1px] border-slate-400'
+          >
+            <option value='on going'>Ongoing</option>
+            <option value='done'>Done</option>
+            <option value='upcoming'>Upcoming</option>
           </select>
           <button className='w-1/2 mx-auto bg-[#0077b6] text-white py-2.5 px-3.5 text-center rounded-md'>
             Edit
