@@ -34,9 +34,11 @@ const DaftarKomunitas = () => {
   };
 
   const [modalEdit, setModalEdit] = useState(false);
+  const [selectedId, setSelectedId] = useState(null);
   const [modalAdd, setModalAdd] = useState(false);
-  const handleOpenModal = () => {
-    setModalEdit(!modalEdit);
+  const handleOpenModal = (id) => {
+    setSelectedId(id);
+    setModalEdit(true);
   };
 
   const handleOpenModalAdd = () => {
@@ -191,9 +193,9 @@ const DaftarKomunitas = () => {
                     </tr>
                   </thead>
                   <tbody className='text-left'>
-                    {aktivitas?.map((list, index) => (
+                    {aktivitas?.map((list) => (
                       <tr
-                        key={index}
+                        key={list.id}
                         className='flex flex-col flex-nowrap border-b-2 border-slate-200 sm:table-row mb-2 sm:mb-0'
                       >
                         <td className='p-3'>{list.title}</td>
@@ -206,7 +208,7 @@ const DaftarKomunitas = () => {
                               value={{ size: '2em', color: '#0042ED' }}
                             >
                               <div
-                                onClick={handleOpenModal}
+                                onClick={() => handleOpenModal(list.id)}
                                 className='cursor-pointer'
                               >
                                 <RiEditBoxFill />
@@ -226,12 +228,22 @@ const DaftarKomunitas = () => {
                             </IconContext.Provider>
                           </td>
                         ) : null}
+                        {modalEdit && selectedId === list.id && (
+                          <EditActivities
+                            idAct={list.id}
+                            idCom={id}
+                            title={list.title}
+                            desc={list.description}
+                            date={list.date}
+                            status={list.status}
+                            isClose={handleCloseModal}
+                          />
+                        )}
                       </tr>
                     ))}
                   </tbody>
                 </table>
               )}
-              <EditActivities isOpen={modalEdit} isClose={handleCloseModal} />
               <AddActivities
                 idCommunity={id}
                 isOpen={modalAdd}

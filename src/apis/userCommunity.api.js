@@ -37,11 +37,30 @@ const userCommunityAPI = {
   },
   async deleteActivity(data) {
     try {
-      console.log(data);
       const res = await axiosInstance.delete(
         `/api/v2/communities/${data.communityId}/activity/${data.data}`
       );
       return data.data;
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  async editActivity(idCommunity, idActivity, data) {
+    try {
+      console.log(data);
+      const res = await axiosInstance.patch(
+        `/api/v2/communities/${idCommunity}/activity/${idActivity}`,
+        data
+      );
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  },
+  async newCommunity(data) {
+    try {
+      const res = await axiosInstance.post('/api/v2/communities', data);
+      return res;
     } catch (err) {
       console.log(err);
     }

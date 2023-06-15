@@ -31,6 +31,7 @@ const Komunitas = () => {
               dataCommunity?.map((list) => (
                 <KomunitasCard
                   key={list.id}
+                  communityImg={list.image}
                   leaderName={list.leader_name}
                   communityName={list.name}
                   communityLocation={list.location}
