@@ -4,11 +4,13 @@ import authHelpers from '../utils/authHelpers';
 
 const Register = () => {
   const [form, setForm] = useState({
-    name: '',
+    namaUser: '',
     email: '',
     password: '',
     address: '',
   });
+  const [errRegister, setErrRegister] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChangeForm = (e) => {
@@ -17,17 +19,29 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const success = await authHelpers.register({
-      name: form.name,
-      address: form.address,
-      email: form.email,
-      password: form.password,
-    });
-    if (success) {
-      alert('register berhasil');
-      navigate('/login');
+    console.log(form);
+    if (
+      form.email === '' ||
+      form.password === '' ||
+      form.namaUser === '' ||
+      form.address === ''
+    ) {
+      return setErrRegister('Semua field tidak boleh kosong');
     } else {
-      alert('register gagal');
+      setIsLoading(true);
+      const success = await authHelpers.register({
+        name: form.namaUser,
+        address: form.address,
+        email: form.email,
+        password: form.password,
+      });
+      if (success) {
+        setIsLoading(false);
+        navigate('/signin');
+      } else {
+        setIsLoading(false);
+        setErrRegister('Register Gagal');
+      }
     }
   };
 
@@ -46,7 +60,7 @@ const Register = () => {
             className='w-full flex flex-col gap-4 sm:gap-6 mt-4'
           >
             <input
-              name='name'
+              name='namaUser'
               className='w-full py-2 px-2.5 border-b-[1px] border-slate-400'
               type='text'
               placeholder='Nama anda'
@@ -69,13 +83,24 @@ const Register = () => {
               type='password'
               placeholder='Password'
             />
-            <Link
-              onClick={handleSubmit}
-              to='/'
-              className='bg-[#52C41A] text-white mt-4 sm:mt-8 sm:w-1/3 sm:mx-auto font-semibold py-2.5 px-3.5 text-center rounded-md'
-            >
-              Register
-            </Link>
+            <p>{errRegister}</p>
+            {isLoading ? (
+              <button
+                disabled
+                to='/'
+                className='bg-[#6c757d] text-white mt-4 sm:mt-8 sm:w-1/3 sm:mx-auto font-semibold py-2.5 px-3.5 text-center rounded-md'
+              >
+                Loading
+              </button>
+            ) : (
+              <Link
+                onClick={handleSubmit}
+                to='/'
+                className='bg-[#52C41A] text-white mt-4 sm:mt-8 sm:w-1/3 sm:mx-auto font-semibold py-2.5 px-3.5 text-center rounded-md'
+              >
+                Register
+              </Link>
+            )}
           </form>
           <div className='text-center mt-2 flex flex-col gap-1.5'>
             <p className='text-[18px] text-[#8C8C8C] font-light'>
