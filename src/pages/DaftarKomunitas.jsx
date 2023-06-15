@@ -10,7 +10,9 @@ import {
   getCommunityById,
   getMembers,
   joinCommunity,
+  removeActivity,
 } from '../store/features/communitySlice';
+import { findMemberId } from '../utils/memberHelpers';
 
 const DaftarKomunitas = () => {
   const { id } = useParams();
@@ -49,9 +51,15 @@ const DaftarKomunitas = () => {
     setModalAdd(false);
   };
 
-  const handleJoinCommunity = (id, data) => {
-    dispatch(joinCommunity(id, data));
+  const handleJoinCommunity = (idCommunity, data) => {
+    dispatch(joinCommunity(idCommunity, data));
   };
+
+  const handleDeleteActivity = (communityId, data) => {
+    dispatch(removeActivity({ communityId, data }));
+  };
+
+  const isMember = findMemberId(userAuth.id, members);
 
   return (
     <>
@@ -91,10 +99,14 @@ const DaftarKomunitas = () => {
                   {isLoadingMember ? (
                     <button
                       disabled
-                      className='bg-[#6c757d] text-white font-semibold py-2.5 px-3.5 text-center rounded-md sm:w-1/3'
+                      className='bg-[#8C8C8C] text-slate-700 font-semibold py-2.5 px-3.5 text-center rounded-md sm:w-1/3'
                     >
                       Loading
                     </button>
+                  ) : isMember ? (
+                    <p className='font-semibold text-[24px]'>
+                      Anda member komunitas ini
+                    </p>
                   ) : (
                     <button
                       onClick={() => {
@@ -203,7 +215,12 @@ const DaftarKomunitas = () => {
                             <IconContext.Provider
                               value={{ size: '2em', color: '#FF3034' }}
                             >
-                              <div className='cursor-pointer'>
+                              <div
+                                onClick={() =>
+                                  handleDeleteActivity(id, list.id)
+                                }
+                                className='cursor-pointer'
+                              >
                                 <RiDeleteBin2Fill />
                               </div>
                             </IconContext.Provider>
