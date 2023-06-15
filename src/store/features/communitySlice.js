@@ -43,7 +43,7 @@ export const getMembers = createAsyncThunk('getMember', async (id) => {
 export const joinCommunity = createAsyncThunk('joinMember', async (data) => {
   try {
     const res = await userCommunityAPI.joinMember(data);
-    console.log(res);
+    return res;
   } catch (err) {
     console.log(err);
   }
@@ -57,6 +57,18 @@ export const postActivity = createAsyncThunk('addNewActivity', async (data) => {
     console.log(err);
   }
 });
+
+export const removeActivity = createAsyncThunk(
+  'removeActivity',
+  async (data) => {
+    try {
+      const res = await userCommunityAPI.deleteActivity(data);
+      return res;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
 
 const communitySlice = createSlice({
   name: 'community',
@@ -107,6 +119,16 @@ const communitySlice = createSlice({
         };
         console.log(newActivity);
         state.aktivitas = [...state.aktivitas, newActivity];
+      })
+      .addCase(removeActivity.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(removeActivity.fulfilled, (state, action) => {
+        state.loading = false;
+        const deletedActivity = action.payload;
+        state.aktivitas = state.aktivitas.filter(
+          (act) => act.id !== deletedActivity
+        );
       });
   },
 });

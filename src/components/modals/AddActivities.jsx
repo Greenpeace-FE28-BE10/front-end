@@ -21,7 +21,6 @@ const AddActivities = ({ isOpen, isClose, idCommunity }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formAdd);
     dispatch(postActivity(formAdd));
   };
 
