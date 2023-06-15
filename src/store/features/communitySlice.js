@@ -5,9 +5,11 @@ import userCommunityAPI from '../../apis/userCommunity.api';
 const initialState = {
   data: null,
   detail: null,
+  members: null,
   aktivitas: null,
   leader: null,
   loading: false,
+  loadingMember: false,
   loadingPost: false,
 };
 
@@ -23,8 +25,25 @@ export const getAllCommunity = createAsyncThunk('fetch', async () => {
 export const getCommunityById = createAsyncThunk('fetchById', async (id) => {
   try {
     const res = await communityAPI.fetchCommunityById(id);
-    console.log(res);
     return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+export const getMembers = createAsyncThunk('getMember', async (id) => {
+  try {
+    const res = await userCommunityAPI.getAllMembers(id);
+    return res.data;
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+export const joinCommunity = createAsyncThunk('joinMember', async (data) => {
+  try {
+    const res = await userCommunityAPI.joinMember(data);
+    console.log(res);
   } catch (err) {
     console.log(err);
   }
@@ -59,6 +78,21 @@ const communitySlice = createSlice({
         state.detail = action.payload.communityDetail;
         state.aktivitas = action.payload.communityActivities;
         state.leader = action.payload.communityLeader;
+      })
+      .addCase(getMembers.pending, (state) => {
+        state.loadingMember = true;
+      })
+      .addCase(getMembers.fulfilled, (state, action) => {
+        state.loadingMember = false;
+        state.members = action.payload.communityMembers;
+      })
+      .addCase(joinCommunity.pending, (state) => {
+        state.loading = true;
+        state.loadingMember = true;
+      })
+      .addCase(joinCommunity.fulfilled, (state) => {
+        state.loading = false;
+        state.loadingMember = false;
       })
       .addCase(postActivity.pending, (state) => {
         state.loadingPost = true;

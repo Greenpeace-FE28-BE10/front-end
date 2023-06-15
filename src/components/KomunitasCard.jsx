@@ -1,15 +1,11 @@
-import { useDispatch } from 'react-redux';
-import { getCommunityById } from '../store/features/communitySlice';
 import ButtonLink from './ButtonLink';
 
 const KomunitasCard = ({
   leaderName,
   communityName,
   communityLocation,
-  getDetail,
   idCommunity,
 }) => {
-  console.log(idCommunity);
   return (
     <div className='w-full flex flex-col gap-2 bg-white rounded-md'>
       <div className='w-full h-full'>
@@ -32,7 +28,6 @@ const KomunitasCard = ({
           </div>
         </div>
         <ButtonLink
-          //   action={getDetail}
           path={`/daftar-komunitas/${idCommunity}`}
           text='Gabung Komunitas'
           width={'w-full sm:w-1/2 sm:mx-auto'}

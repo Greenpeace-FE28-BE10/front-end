@@ -6,19 +6,30 @@ import { useParams } from 'react-router-dom';
 import LoaderData from '../components/LoaderData';
 import AddActivities from '../components/modals/AddActivities';
 import EditActivities from '../components/modals/EditActivities';
-import { getCommunityById } from '../store/features/communitySlice';
+import {
+  getCommunityById,
+  getMembers,
+  joinCommunity,
+} from '../store/features/communitySlice';
 
 const DaftarKomunitas = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCommunityById(id));
+    dispatch(getMembers(id));
   }, [dispatch]);
 
   const isLoading = useSelector((state) => state.community.loading);
-  const { detail, aktivitas, leader } = useSelector((state) => state.community);
+  const isLoadingMember = useSelector((state) => state.community.loadingMember);
+  const { detail, aktivitas, leader, members } = useSelector(
+    (state) => state.community
+  );
   const userAuth = JSON.parse(localStorage.getItem('user'));
-  console.log(userAuth);
+  const dataJoin = {
+    users_id: userAuth.id,
+    communities_id: id,
+  };
 
   const [modalEdit, setModalEdit] = useState(false);
   const [modalAdd, setModalAdd] = useState(false);
@@ -38,6 +49,10 @@ const DaftarKomunitas = () => {
     setModalAdd(false);
   };
 
+  const handleJoinCommunity = (id, data) => {
+    dispatch(joinCommunity(id, data));
+  };
+
   return (
     <>
       {isLoading ? (
@@ -50,10 +65,10 @@ const DaftarKomunitas = () => {
             <div className='flex flex-col sm:flex-row sm:justify-between gap-8 sm:gap-12'>
               <div className='sm:w-1/2 flex flex-col gap-2 sm:gap-2'>
                 <div className='space-y-1'>
-                  <h2 className='text-[32px] sm:text-[56px] font-semibold'>
+                  <h2 className='text-[32px] leading-tight sm:text-[56px] font-semibold'>
                     {detail?.name}
                   </h2>
-                  <div className='flex gap-2'>
+                  <div className='flex items-center gap-2 pb-2'>
                     <div className='w-[28px] h-[28px]'>
                       <img
                         className='w-full h-full object-cover'
@@ -64,15 +79,32 @@ const DaftarKomunitas = () => {
                     <p className='font-light sm:text-[20px] text-[#8C8C8C]'>
                       {detail?.location}
                     </p>
+                    <p className='text-[20px] pl-5'>
+                      {members?.length} telah berkontribusi
+                    </p>
                   </div>
                 </div>
                 <div className='flex flex-col gap-5 sm:gap-8'>
                   <p className='text-[16px] sm:text-[18px] font-light'>
                     {detail?.description}
                   </p>
-                  <button className='bg-[#52C41A] text-white font-semibold py-2.5 px-3.5 text-center rounded-md sm:w-1/3'>
-                    Gabung Sekarang
-                  </button>
+                  {isLoadingMember ? (
+                    <button
+                      disabled
+                      className='bg-[#6c757d] text-white font-semibold py-2.5 px-3.5 text-center rounded-md sm:w-1/3'
+                    >
+                      Loading
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        handleJoinCommunity(dataJoin);
+                      }}
+                      className='bg-[#52C41A] text-white font-semibold py-2.5 px-3.5 text-center rounded-md sm:w-1/3'
+                    >
+                      Gabung Sekarang
+                    </button>
+                  )}
                 </div>
               </div>
               <div className='w-full h-full sm:w-1/2'>

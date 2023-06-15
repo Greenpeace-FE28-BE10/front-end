@@ -10,7 +10,6 @@ const Komunitas = () => {
   const dataCommunity = useSelector((state) => state.community.data);
   const dispatch = useDispatch();
 
-  console.log(dataCommunity);
   useEffect(() => {
     dispatch(getAllCommunity());
   }, [dispatch]);
@@ -35,7 +34,6 @@ const Komunitas = () => {
                   leaderName={list.leader_name}
                   communityName={list.name}
                   communityLocation={list.location}
-                  //   getDetail={() => handleGetDetail(list.id)}
                   idCommunity={list.id}
                 />
               ))
