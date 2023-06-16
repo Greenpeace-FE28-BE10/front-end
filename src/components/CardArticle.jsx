@@ -1,21 +1,19 @@
 import { Link } from 'react-router-dom';
 
-const CardArticle = () => {
+const CardArticle = ({ title, image }) => {
   return (
-    <div className='flex flex-col sm:flex-row gap-2 sm:gap-8'>
-      <div className='w-full h-full'>
+    <div className='flex flex-col sm:flex-row gap-2 sm:gap-0'>
+      <div className='w-3/5 h-full'>
         <img
-          className='w-full h-[180px] sm:h-[280px] object-cover rounded-md'
-          src='https://res.cloudinary.com/dso5ztlee/image/upload/v1680015476/article-2_bk4qnz.jpg'
+          className='w-[280px] h-[180px] sm:h-[280px] object-cover rounded-md'
+          src={`${image}`}
           alt='article-img'
         />
       </div>
-      <div className='flex flex-col sm:items-end sm:justify-between gap-4'>
+      <div className='w-4/5 flex flex-col sm:items-end sm:justify-between gap-4'>
         <div className='flex flex-col'>
           <p className='text-[18px] font-semibold text-[#52C41A]'>Terkini</p>
-          <h1 className='text-[22px] sm:text-[32px] font-semibold'>
-            Ancaman kekeringan yang disebabkan perubahan iklim
-          </h1>
+          <h1 className='text-[22px] sm:text-[28px] font-semibold'>{title}</h1>
         </div>
         <Link
           to='/artikel'

@@ -6,7 +6,7 @@ import KomunitasSection from '../components/KomunitasSection';
 const Homepage = () => {
   return (
     <>
-      <div className='w-full px-5 sm:px-[120px] pt-24 sm:py-48'>
+      <div className='w-full px-5 sm:px-[120px] pt-24 sm:pt-48 sm:pb-24'>
         <HeroSection />
         <ArticleSection />
       </div>
