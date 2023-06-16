@@ -20,6 +20,7 @@ const DaftarKomunitas = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCommunityById(id));
+    dispatch(getMembers(id));
     if (joinCommunityStatus === 'success') {
       dispatch(getMembers(id));
     }
