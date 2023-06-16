@@ -59,7 +59,12 @@ const AddActivities = ({ isOpen, isClose, idCommunity }) => {
             <option value='upcoming'>Upcoming</option>
           </select>
           {isLoading ? (
-            <p>loading ...</p>
+            <button
+              disabled
+              className='w-1/2 mx-auto bg-[#0077b6] text-white py-2.5 px-3.5 text-center rounded-md'
+            >
+              Loading
+            </button>
           ) : (
             <button
               onClick={handleSubmit}

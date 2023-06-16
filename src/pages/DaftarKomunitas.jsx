@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { IconContext } from 'react-icons';
 import { RiDeleteBin2Fill, RiEditBoxFill } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import LoaderData from '../components/LoaderData';
 import AddActivities from '../components/modals/AddActivities';
 import EditActivities from '../components/modals/EditActivities';
@@ -31,7 +31,7 @@ const DaftarKomunitas = () => {
   );
   const userAuth = JSON.parse(localStorage.getItem('user'));
   const dataJoin = {
-    users_id: userAuth.id,
+    users_id: userAuth?.id,
     communities_id: id,
   };
 
@@ -64,7 +64,7 @@ const DaftarKomunitas = () => {
     dispatch(removeActivity({ communityId, data }));
   };
 
-  const isMember = findMemberId(userAuth.id, members);
+  const isMember = findMemberId(userAuth?.id, members);
 
   return (
     <>
@@ -92,16 +92,25 @@ const DaftarKomunitas = () => {
                     <p className='font-light sm:text-[20px] text-[#8C8C8C]'>
                       {detail?.location}
                     </p>
-                    <p className='text-[20px] pl-5'>
-                      {members?.length} telah berkontribusi
-                    </p>
+                    {userAuth === null ? null : (
+                      <p className='text-[20px] pl-5'>
+                        {members?.length} telah berkontribusi
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div className='flex flex-col gap-5 sm:gap-8'>
                   <p className='text-[16px] sm:text-[18px] font-light'>
                     {detail?.description}
                   </p>
-                  {isLoadingMember ? (
+                  {userAuth === null ? (
+                    <Link
+                      className='bg-[#52C41A] text-white font-semibold py-2.5 px-3.5 text-center rounded-md sm:w-1/3'
+                      to='/signin'
+                    >
+                      Login Untuk Bergabung
+                    </Link>
+                  ) : isLoadingMember ? (
                     <button
                       disabled
                       className='bg-[#8C8C8C] text-slate-700 font-semibold py-2.5 px-3.5 text-center rounded-md sm:w-1/3'
@@ -196,7 +205,7 @@ const DaftarKomunitas = () => {
                     </tr>
                   </thead>
                   {isLoadingDelete ? (
-                    <div className='sm:py-44 sm:px-[120px]'>
+                    <div className='sm:py-8'>
                       <LoaderData fill='#52C41A' />
                     </div>
                   ) : (
