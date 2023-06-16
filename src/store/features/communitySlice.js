@@ -11,6 +11,8 @@ const initialState = {
   loading: false,
   loadingMember: false,
   loadingPost: false,
+  loadingEdit: false,
+  loadingDelete: false,
 };
 
 export const getAllCommunity = createAsyncThunk('fetch', async () => {
@@ -70,6 +72,35 @@ export const removeActivity = createAsyncThunk(
   }
 );
 
+export const patchActivity = createAsyncThunk(
+  'editActivity',
+  async ({ idCommunity, idActivity, data }) => {
+    try {
+      const res = await userCommunityAPI.editActivity(
+        idCommunity,
+        idActivity,
+        data
+      );
+      return res.data.data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
+export const createCommunity = createAsyncThunk(
+  'newCommunity',
+  async (data) => {
+    try {
+      const res = await userCommunityAPI.newCommunity(data);
+      console.log(res);
+      return res.data.data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
+
 const communitySlice = createSlice({
   name: 'community',
   initialState,
@@ -95,8 +126,8 @@ const communitySlice = createSlice({
         state.loadingMember = true;
       })
       .addCase(getMembers.fulfilled, (state, action) => {
-        state.loadingMember = false;
         state.members = action.payload.communityMembers;
+        state.loadingMember = false;
       })
       .addCase(joinCommunity.pending, (state) => {
         state.loading = true;
@@ -110,25 +141,45 @@ const communitySlice = createSlice({
         state.loadingPost = true;
       })
       .addCase(postActivity.fulfilled, (state, action) => {
-        state.loadingPost = false;
         const newActivity = {
           title: action.payload.title,
           description: action.payload.description,
           date: action.payload.date,
           status: action.payload.status,
         };
-        console.log(newActivity);
         state.aktivitas = [...state.aktivitas, newActivity];
+        state.loadingPost = false;
       })
       .addCase(removeActivity.pending, (state) => {
-        state.loading = true;
+        state.loadingDelete = true;
       })
       .addCase(removeActivity.fulfilled, (state, action) => {
-        state.loading = false;
         const deletedActivity = action.payload;
         state.aktivitas = state.aktivitas.filter(
           (act) => act.id !== deletedActivity
         );
+        state.loadingDelete = false;
+      })
+      .addCase(patchActivity.pending, (state) => {
+        state.loadingEdit = true;
+      })
+      .addCase(patchActivity.fulfilled, (state, action) => {
+        const updatedAktivitas = action.payload;
+        const aktivitasIndex = state.aktivitas.findIndex(
+          (aktivitas) => aktivitas.id === updatedAktivitas.id
+        );
+        if (aktivitasIndex !== -1) {
+          state.aktivitas[aktivitasIndex] = updatedAktivitas;
+        }
+        state.loadingEdit = false;
+      })
+      .addCase(createCommunity.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(createCommunity.fulfilled, (state, action) => {
+        const createdCommunity = action.payload;
+        state.data = [...state.data, createdCommunity];
+        state.loading = false;
       });
   },
 });

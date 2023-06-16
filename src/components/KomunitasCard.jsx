@@ -1,6 +1,7 @@
 import ButtonLink from './ButtonLink';
 
 const KomunitasCard = ({
+  communityImg,
   leaderName,
   communityName,
   communityLocation,
@@ -11,8 +12,7 @@ const KomunitasCard = ({
       <div className='w-full h-full'>
         <img
           className='w-full h-full object-cover rounded-t-md'
-          src='https://res.cloudinary.com/dso5ztlee/image/upload/v1680015475/hero-img_upmbsm.jpg'
-          alt=''
+          src={`${communityImg}`}
         />
       </div>
       <div className='flex flex-col gap-4 sm:gap-10 px-3 py-3.5 sm:py-6 sm:px-8'>
