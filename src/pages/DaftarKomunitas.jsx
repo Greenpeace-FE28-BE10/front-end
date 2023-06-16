@@ -15,12 +15,15 @@ import {
 import { findMemberId } from '../utils/memberHelpers';
 
 const DaftarKomunitas = () => {
+  const [joinCommunityStatus, setJoinCommunityStatus] = useState(null);
   const { id } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getCommunityById(id));
-    dispatch(getMembers(id));
-  }, [dispatch]);
+    if (joinCommunityStatus === 'success') {
+      dispatch(getMembers(id));
+    }
+  }, [joinCommunityStatus, dispatch, id]);
 
   const isLoading = useSelector((state) => state.community.loading);
   const isLoadingMember = useSelector((state) => state.community.loadingMember);
@@ -47,17 +50,24 @@ const DaftarKomunitas = () => {
     setModalAdd(!modalAdd);
   };
 
+  const handleReload = () => {
+    window.location.reload();
+  };
+
   const handleCloseModal = () => {
     setModalEdit(false);
+    handleReload();
   };
 
   const handleCloseModalAdd = () => {
     setModalAdd(false);
+    handleReload();
   };
 
   const handleJoinCommunity = (idCommunity, data) => {
-    console.log(idCommunity, data);
-    dispatch(joinCommunity(idCommunity, data));
+    dispatch(joinCommunity(idCommunity, data))
+      .then(() => setJoinCommunityStatus('success'))
+      .catch(() => setJoinCommunityStatus('error'));
   };
 
   const handleDeleteActivity = (communityId, data) => {
