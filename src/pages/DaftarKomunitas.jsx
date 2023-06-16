@@ -127,7 +127,7 @@ const DaftarKomunitas = () => {
               <div className='w-full h-full sm:w-1/2'>
                 <img
                   className='w-full h-full object-cover rounded-xl'
-                  src='https://res.cloudinary.com/dso5ztlee/image/upload/v1685951237/banner-detail-komunitas_zks7vt.jpg'
+                  src={`${detail?.image}`}
                   alt=''
                 />
               </div>
