@@ -12,7 +12,7 @@ const HeroKomunitas = () => {
             To <span className='text-green-500 italic'>Save Earth</span>
           </h1>
           <div className='flex mt-5 justify-center'>
-            <SearchBar></SearchBar>
+            <SearchBar />
           </div>
         </div>
       </div>
