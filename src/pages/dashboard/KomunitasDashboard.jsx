@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { IconContext } from 'react-icons';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +11,7 @@ import {
 
 const KomunitasDashboard = () => {
   const isLoading = useSelector((state) => state.adminCommunity.loading);
+  const [search, setSearch] = useState('');
   const isLoadingDelete = useSelector(
     (state) => state.adminCommunity.loadingDelete
   );
@@ -34,6 +35,7 @@ const KomunitasDashboard = () => {
             className='px-3.5 py-2.5 w-1/2 border-2 border-slate-800 rounded-md '
             placeholder='Cari komunitas ...'
             type='text'
+            onChange={(e) => setSearch(e.target.value)}
           />
           <button className='bg-[#52C41A] text-white font-semibold py-2.5 px-3.5 text-center rounded-md'>
             Buat Komunitas
@@ -59,38 +61,42 @@ const KomunitasDashboard = () => {
               </div>
             ) : (
               <tbody className='w-full text-left'>
-                {dataCommunity?.map((community) => (
-                  <tr
-                    key={community.id}
-                    className='align-top text-[18px] border-b-2 mb-2 sm:mb-0'
-                  >
-                    <td className='border-slate-400 p-3'>{community.name}</td>
-                    <td className='border-slate-400 p-3'>
-                      {community.location}
-                    </td>
-                    <td className='border-slate-400 p-3'>
-                      {community.leader_name}
-                    </td>
-                    <td className='flex items-center justify-center gap-5 p-3'>
-                      <Link
-                        to={`/dashboard/detail-komunitas/${community.id}`}
-                        className='bg-[#52C41A] text-white py-2.5 px-3.5 text-center rounded-md'
-                      >
-                        Detail
-                      </Link>
-                      <IconContext.Provider
-                        value={{ size: '2em', color: '#FF3034' }}
-                      >
-                        <div
-                          onClick={() => handleDeleteCommunity(community.id)}
-                          className='cursor-pointer'
+                {dataCommunity
+                  ?.filter((community) =>
+                    community.name.toLowerCase().includes(search)
+                  )
+                  .map((community) => (
+                    <tr
+                      key={community.id}
+                      className='align-top text-[18px] border-b-2 mb-2 sm:mb-0'
+                    >
+                      <td className='border-slate-400 p-3'>{community.name}</td>
+                      <td className='border-slate-400 p-3'>
+                        {community.location}
+                      </td>
+                      <td className='border-slate-400 p-3'>
+                        {community.leader_name}
+                      </td>
+                      <td className='flex items-center justify-center gap-5 p-3'>
+                        <Link
+                          to={`/dashboard/detail-komunitas/${community.id}`}
+                          className='bg-[#52C41A] text-white py-2.5 px-3.5 text-center rounded-md'
                         >
-                          <RiDeleteBin2Fill />
-                        </div>
-                      </IconContext.Provider>
-                    </td>
-                  </tr>
-                ))}
+                          Detail
+                        </Link>
+                        <IconContext.Provider
+                          value={{ size: '2em', color: '#FF3034' }}
+                        >
+                          <div
+                            onClick={() => handleDeleteCommunity(community.id)}
+                            className='cursor-pointer'
+                          >
+                            <RiDeleteBin2Fill />
+                          </div>
+                        </IconContext.Provider>
+                      </td>
+                    </tr>
+                  ))}
               </tbody>
             )}
           </table>
