@@ -13,6 +13,7 @@ import ProtectedVisitor from './ProtectedVisitor';
 import LayoutDashboard from '../pages/LayoutDashboard';
 import ArtikelDashboard from '../pages/dashboard/ArtikelDashboard';
 import KomunitasDashboard from '../pages/dashboard/KomunitasDashboard';
+import DetailDashboard from '../pages/dashboard/DetailDashboard';
 
 const SetupRoute = () => {
   return (
@@ -41,6 +42,10 @@ const SetupRoute = () => {
                 <KomunitasDashboard />
               </ProtectedAdmin>
             }
+          />
+          <Route
+            path='/dashboard/detail-komunitas/:id'
+            element={<DetailDashboard />}
           />
           <Route
             path='/dashboard/artikel'

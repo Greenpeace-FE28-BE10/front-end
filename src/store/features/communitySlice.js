@@ -12,6 +12,7 @@ const initialState = {
   loadingMember: false,
   loadingPost: false,
   loadingEdit: false,
+  loadingDelete: false,
 };
 
 export const getAllCommunity = createAsyncThunk('fetch', async () => {
@@ -125,8 +126,8 @@ const communitySlice = createSlice({
         state.loadingMember = true;
       })
       .addCase(getMembers.fulfilled, (state, action) => {
-        state.loadingMember = false;
         state.members = action.payload.communityMembers;
+        state.loadingMember = false;
       })
       .addCase(joinCommunity.pending, (state) => {
         state.loading = true;
@@ -140,25 +141,24 @@ const communitySlice = createSlice({
         state.loadingPost = true;
       })
       .addCase(postActivity.fulfilled, (state, action) => {
-        state.loadingPost = false;
         const newActivity = {
           title: action.payload.title,
           description: action.payload.description,
           date: action.payload.date,
           status: action.payload.status,
         };
-        console.log(newActivity);
         state.aktivitas = [...state.aktivitas, newActivity];
+        state.loadingPost = false;
       })
       .addCase(removeActivity.pending, (state) => {
-        state.loading = true;
+        state.loadingDelete = true;
       })
       .addCase(removeActivity.fulfilled, (state, action) => {
-        state.loading = false;
         const deletedActivity = action.payload;
         state.aktivitas = state.aktivitas.filter(
           (act) => act.id !== deletedActivity
         );
+        state.loadingDelete = false;
       })
       .addCase(patchActivity.pending, (state) => {
         state.loadingEdit = true;

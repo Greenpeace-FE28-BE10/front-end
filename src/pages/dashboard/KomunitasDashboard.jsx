@@ -1,23 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { IconContext } from 'react-icons';
-import { RiEditBoxFill } from 'react-icons/ri';
 import { RiDeleteBin2Fill } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import LoaderData from '../../components/LoaderData';
-import EditCommunity from '../../components/modals/EditCommunity';
-import { adminAllCommunity } from '../../store/features/adminCommunitySlice';
+import {
+  adminAllCommunity,
+  adminRemoveCommunity,
+} from '../../store/features/adminCommunitySlice';
 
 const KomunitasDashboard = () => {
-  const [modalEdit, setModalEdit] = useState(false);
-  const handleOpenModal = () => {
-    setModalEdit(!modalEdit);
-  };
-
-  const handleCloseModal = () => {
-    setModalEdit(false);
-  };
-
   const isLoading = useSelector((state) => state.adminCommunity.loading);
+  const isLoadingDelete = useSelector(
+    (state) => state.adminCommunity.loadingDelete
+  );
   const dataCommunity = useSelector((state) => state.adminCommunity.data);
   const dispatch = useDispatch();
 
@@ -25,7 +21,9 @@ const KomunitasDashboard = () => {
     dispatch(adminAllCommunity());
   }, [dispatch]);
 
-  console.log(dataCommunity);
+  const handleDeleteCommunity = (id) => {
+    dispatch(adminRemoveCommunity(id));
+  };
 
   return (
     <div className='w-full px-14 py-10 space-y-14'>
@@ -42,7 +40,9 @@ const KomunitasDashboard = () => {
           </button>
         </div>
         {isLoading ? (
-          <LoaderData fill='#52C41A' />
+          <div className='w-full flex items-center justify-center py-6'>
+            <LoaderData fill='#52C41A' />
+          </div>
         ) : (
           <table className='w-full bg-white rounded-lg overflow-hidden sm:shadow-lg'>
             <thead className='text-white text-left'>
@@ -53,39 +53,48 @@ const KomunitasDashboard = () => {
                 <th className='p-3 text-center'>Actions</th>
               </tr>
             </thead>
-            <tbody className='w-full text-left'>
-              {dataCommunity?.map((community) => (
-                <tr
-                  key={community.id}
-                  className='align-top text-[18px] border-b-2 mb-2 sm:mb-0'
-                >
-                  <td className='border-slate-400 p-3'>{community.name}</td>
-                  <td className='border-slate-400 p-3'>{community.location}</td>
-                  <td className='border-slate-400 p-3'>
-                    {community.leader_name}
-                  </td>
-                  <td className='flex items-center justify-center gap-5 p-3'>
-                    <IconContext.Provider
-                      value={{ size: '2em', color: '#0042ED' }}
-                    >
-                      <div onClick={handleOpenModal} className='cursor-pointer'>
-                        <RiEditBoxFill />
-                      </div>
-                    </IconContext.Provider>
-                    <IconContext.Provider
-                      value={{ size: '2em', color: '#FF3034' }}
-                    >
-                      <div className='cursor-pointer'>
-                        <RiDeleteBin2Fill />
-                      </div>
-                    </IconContext.Provider>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+            {isLoadingDelete ? (
+              <div className='py-6'>
+                <LoaderData fill='#52C41A' />
+              </div>
+            ) : (
+              <tbody className='w-full text-left'>
+                {dataCommunity?.map((community) => (
+                  <tr
+                    key={community.id}
+                    className='align-top text-[18px] border-b-2 mb-2 sm:mb-0'
+                  >
+                    <td className='border-slate-400 p-3'>{community.name}</td>
+                    <td className='border-slate-400 p-3'>
+                      {community.location}
+                    </td>
+                    <td className='border-slate-400 p-3'>
+                      {community.leader_name}
+                    </td>
+                    <td className='flex items-center justify-center gap-5 p-3'>
+                      <Link
+                        to={`/dashboard/detail-komunitas/${community.id}`}
+                        className='bg-[#52C41A] text-white py-2.5 px-3.5 text-center rounded-md'
+                      >
+                        Detail
+                      </Link>
+                      <IconContext.Provider
+                        value={{ size: '2em', color: '#FF3034' }}
+                      >
+                        <div
+                          onClick={() => handleDeleteCommunity(community.id)}
+                          className='cursor-pointer'
+                        >
+                          <RiDeleteBin2Fill />
+                        </div>
+                      </IconContext.Provider>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            )}
           </table>
         )}
-        <EditCommunity isOpen={modalEdit} isClose={handleCloseModal} />
       </div>
     </div>
   );

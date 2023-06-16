@@ -24,6 +24,8 @@ const DaftarKomunitas = () => {
 
   const isLoading = useSelector((state) => state.community.loading);
   const isLoadingMember = useSelector((state) => state.community.loadingMember);
+  const isLoadingDelete = useSelector((state) => state.community.loadingDelete);
+
   const { detail, aktivitas, leader, members } = useSelector(
     (state) => state.community
   );
@@ -54,6 +56,7 @@ const DaftarKomunitas = () => {
   };
 
   const handleJoinCommunity = (idCommunity, data) => {
+    console.log(idCommunity, data);
     dispatch(joinCommunity(idCommunity, data));
   };
 
@@ -192,56 +195,62 @@ const DaftarKomunitas = () => {
                       ) : null}
                     </tr>
                   </thead>
-                  <tbody className='text-left'>
-                    {aktivitas?.map((list) => (
-                      <tr
-                        key={list.id}
-                        className='flex flex-col flex-nowrap border-b-2 border-slate-200 sm:table-row mb-2 sm:mb-0'
-                      >
-                        <td className='p-3'>{list.title}</td>
-                        <td className='p-3'>{list.description}</td>
-                        <td className='p-3'>{list.date}</td>
-                        <td className='p-3'>{list.status}</td>
-                        {userAuth?.id === leader.id ? (
-                          <td className='h-full flex items-center justify-center gap-5 my-auto p-3'>
-                            <IconContext.Provider
-                              value={{ size: '2em', color: '#0042ED' }}
-                            >
-                              <div
-                                onClick={() => handleOpenModal(list.id)}
-                                className='cursor-pointer'
+                  {isLoadingDelete ? (
+                    <div className='sm:py-44 sm:px-[120px]'>
+                      <LoaderData fill='#52C41A' />
+                    </div>
+                  ) : (
+                    <tbody className='text-left'>
+                      {aktivitas?.map((list) => (
+                        <tr
+                          key={list.id}
+                          className='flex flex-col flex-nowrap border-b-2 border-slate-200 sm:table-row mb-2 sm:mb-0'
+                        >
+                          <td className='p-3'>{list.title}</td>
+                          <td className='p-3'>{list.description}</td>
+                          <td className='p-3'>{list.date}</td>
+                          <td className='p-3'>{list.status}</td>
+                          {userAuth?.id === leader.id ? (
+                            <td className='h-full flex items-center justify-center gap-5 my-auto p-3'>
+                              <IconContext.Provider
+                                value={{ size: '2em', color: '#0042ED' }}
                               >
-                                <RiEditBoxFill />
-                              </div>
-                            </IconContext.Provider>
-                            <IconContext.Provider
-                              value={{ size: '2em', color: '#FF3034' }}
-                            >
-                              <div
-                                onClick={() =>
-                                  handleDeleteActivity(id, list.id)
-                                }
-                                className='cursor-pointer'
+                                <div
+                                  onClick={() => handleOpenModal(list.id)}
+                                  className='cursor-pointer'
+                                >
+                                  <RiEditBoxFill />
+                                </div>
+                              </IconContext.Provider>
+                              <IconContext.Provider
+                                value={{ size: '2em', color: '#FF3034' }}
                               >
-                                <RiDeleteBin2Fill />
-                              </div>
-                            </IconContext.Provider>
-                          </td>
-                        ) : null}
-                        {modalEdit && selectedId === list.id && (
-                          <EditActivities
-                            idAct={list.id}
-                            idCom={id}
-                            title={list.title}
-                            desc={list.description}
-                            date={list.date}
-                            status={list.status}
-                            isClose={handleCloseModal}
-                          />
-                        )}
-                      </tr>
-                    ))}
-                  </tbody>
+                                <div
+                                  onClick={() =>
+                                    handleDeleteActivity(id, list.id)
+                                  }
+                                  className='cursor-pointer'
+                                >
+                                  <RiDeleteBin2Fill />
+                                </div>
+                              </IconContext.Provider>
+                            </td>
+                          ) : null}
+                          {modalEdit && selectedId === list.id && (
+                            <EditActivities
+                              idAct={list.id}
+                              idCom={id}
+                              title={list.title}
+                              desc={list.description}
+                              date={list.date}
+                              status={list.status}
+                              isClose={handleCloseModal}
+                            />
+                          )}
+                        </tr>
+                      ))}
+                    </tbody>
+                  )}
                 </table>
               )}
               <AddActivities
